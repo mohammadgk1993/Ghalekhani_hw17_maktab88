@@ -6,7 +6,11 @@ const Employee = require('../model/employee');
 //CREATE
 const createCompany = (req, res, next) => {
     const newCompoany = new Company({
-        name: req.body.name
+        name: req.body.name,
+        province: req.body.province,
+        city: req.body.city,
+        registerDate: req.body.registerDate,
+        phoneNumber: req.body.phoneNumber
     });
     newCompoany.save()
     .then(savedCompany => res.json(savedCompany))
@@ -28,7 +32,7 @@ const readCompany = (req,res,next) => {
 
 //READ ALL
 const getAllCompanies = (req, res, next) => {
-    Company.find({},{__v:0,updatedAt:0})
+    Company.find({},{__v:0,updatedAt:0,createdAt:0})
     .then(companies => res.json(companies))
     .catch(err => {
         return next(createError(500, err.message));
@@ -55,8 +59,13 @@ const deleteCompany = (req,res,next) => {
 //UPDATE
 const updateCompany = (req,res,next) => {
     const updatedCompany = {
-        name: req.body.name
     }
+
+    if (req.body.name) updatedCompany.name = req.body.name
+    if (req.body.province) updatedCompany.province = req.body.province
+    if (req.body.city) updatedCompany.city = req.body.city
+    if (req.body.registerDate) updatedCompany.registerDate = req.body.registerDate
+    if (req.body.phoneNumber) updatedCompany.phoneNumber = req.body.phoneNumber
 
     Company.updateOne({_id:req.params.id},updatedCompany)
     .then(employees => res.json(employees))

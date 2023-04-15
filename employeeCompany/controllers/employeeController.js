@@ -13,7 +13,10 @@ const createEmployee =  (req, res, next) => {
     const newEmployee = new Employee({
         firstName: req.body.firstName,
         lastName: req.body.lastName,
-        age: req.body.age,
+        gender: req.body.gender,
+        birth: req.body.birth,
+        phoneNumber: req.body.phoneNumber,
+        city: req.body.city,
         position: req.body.position,
         company: req.body.company
     });
@@ -60,11 +63,16 @@ const deleteEmployee = (req,res,next) => {
 
 const updateEmployee = (req,res,next) => {
     const updatedEmployee = {
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        age: req.body.age,
-        position: req.body.position
     }
+
+    if (req.body.firstName) updatedEmployee.firstName = req.body.firstName
+    if (req.body.lastName) updatedEmployee.lastName = req.body.lastName
+    if (req.body.gender) updatedEmployee.gender = req.body.gender
+    if (req.body.birth) updatedEmployee.birth = req.body.birth
+    if (req.body.phoneNumber) updatedEmployee.phoneNumber = req.body.phoneNumber
+    if (req.body.city) updatedEmployee.city = req.body.city
+    if (req.body.position) updatedEmployee.position = req.body.position
+    if (req.body.company) updatedEmployee. company = req.body.company
 
     Employee.updateOne({_id:req.params.id},updatedEmployee).populate("company")
     .then(employees => res.json(employees))
@@ -82,7 +90,7 @@ const allEmployeePage = (req,res,next) => {
 }
 
 const singleEmployeePage = (req,res,next) => {
-    Employee.findOne({_id:req.params.filter}).populate("company")
+    Employee.findOne({_id:req.params.filter},{__v:0,updatedAt:0}).populate("company")
     .then(employee => res.render("employee",{data:[employee]}))
     .catch(err => {
         return next(createError(500, err.message));

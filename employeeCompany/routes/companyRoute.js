@@ -11,8 +11,9 @@ const {
     companyPage,
 } = require("../controllers/companyController")
 
+const { createCompanyValidator } = require("../middlewares/validators/companyValidators")
 
-router.post("/", createCompany);
+router.post("/", createCompanyValidator,createCompany);
 
 router.get("/all", getAllCompanies);
 

@@ -10,7 +10,7 @@ const employeeRoute = require("./routes/employeeRoute");
 const companyRoute = require("./routes/companyRoute");
 
 const app = express();
-mongoose.connect('mongodb://127.0.0.1:27017/db4').then(() => {
+mongoose.connect('mongodb://127.0.0.1:27017/db5').then(() => {
   console.log("DB is connected.");
 });
 

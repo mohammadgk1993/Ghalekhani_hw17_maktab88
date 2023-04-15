@@ -12,8 +12,14 @@ caption {
   margin: 3%;
 }
 
+#crud {
+  display: flex;
+  flex-direction: row;
+}
+
 #create-company ,#update-company ,#delete-company,
-#create-employee, #update-company,#delete-company{
+#create-employee, #update-employee,#delete-employee,
+#get-employees {
   margin: 2%;
   width: 30%;
   display: flex;
