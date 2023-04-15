@@ -19,8 +19,13 @@
         <tbody>
             <% for (let i of data) { %>
                 <tr>
-                <% for (let j of Object.values(JSON.parse(JSON.stringify(i)))) { %>
-                    <td><%= j %></td>
+                <% const keyVals = Object.entries(JSON.parse(JSON.stringify(i))) %>
+                <% for (let j of keyVals) { %>
+                    <% if (j[0] == "company") { %>
+                        <td><%= j[1].name %></td>
+                        <% continue %>
+                    <% } %>
+                    <td><%= j[1] %></td>
                 <% } %>
                 </tr>
             <% } %>
